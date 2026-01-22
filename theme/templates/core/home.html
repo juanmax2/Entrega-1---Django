@@ -1,0 +1,33 @@
+{% extends "../base.html" %}
+
+{% block head_title %}Inicio{% endblock %}
+
+{% block page_content %}
+    <div class="flex flex-col mb-10">
+        <h1 class="text-3xl text-pink-600 my-10 text-center mb-10">
+            Homeview
+        </h1>
+        {% if request.user.is_authenticated %}
+            <div class="mx-auto">
+                <button>
+                    <a class="border rounded-2xl p-2 border-pink-600 text-pink-600 hover:border-white hover:text-white hover:bg-pink-600" href="{% url 'post_create' %}">Nueva publicación</a>
+                </button>
+            </div> 
+        {% endif %}
+
+        
+    </div>
+    {% include '_includes/_message.html' %}
+    <section >
+        <div>
+            <h2 class="text-center text-xl mb-10">Ultimas publicaciones</h2>
+            <div class="flex flex-col text-center md:grid md:grid-cols-2 md:gap-5 md:mx-10 xl:grid-cols-3">
+                {% for post in last_posts %}
+                    {% include '_includes/_posts/_post_resume.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

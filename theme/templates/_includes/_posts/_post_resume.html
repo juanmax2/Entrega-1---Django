@@ -1,0 +1,44 @@
+
+<article class="w-[80%] mx-auto bg-pink-50 shadow-2xl rounded-2xl mb-10 p-4 md:w-full">
+    {% if post.image %}
+        <img class="w-[50%] mx-auto" src="{{ post.image.url }}" alt="">
+    {% endif %}
+
+    <div class="rounded-2xl mt-2 p-2">
+        <p >
+            {{ post.caption }}
+        </p>
+        <div class="flex flex-col">
+            <div class="my-3 flex gap-5 justify-center">
+                {% if post.user.profile.profile_picture %}
+                    <img class="w-10 h-10 object-cover rounded-full" src="{{ post.user.profile.profile_picture.url }}" alt="">
+                {% else %}
+                    <img class="w-10 h-10 object-cover rounded-full" src="{{ post.user.profile.get_avatar_url }}" alt="">
+                {% endif %}
+                <div class="flex flex-col">
+                    <p class="mr-auto">Autor: <a href="{% url 'profile_detail' post.user.profile.pk %}">{{ post.user.username }}</a></p>
+                    <small>
+                        {{ post.created_at }}
+                    </small>
+                </div>
+            </div>
+            <div class="flex mb-5 justify-center">
+
+                <a class="likeBtn inline-block transition-transform duration-200 active:scale-150" href="{% url 'post_like_ajax' post.pk %}" data-id="{{ post.pk }}">
+                    {% if request.user in post.likes.all %}
+                        ❤️
+                    {% else %}
+                        🩶
+                    {% endif %}
+                </a>
+    
+                <p id="numLikes-{{ post.pk }}">
+                    {{ post.likes.count }}
+                </p>
+            </div>
+            <p>
+                <a class="border rounded-2xl p-2 border-pink-600 text-pink-600 hover:border-white hover:text-white hover:bg-pink-600" href="{% url 'post_detail' post.pk %}">Ver más</a>
+            </p>
+        </div>
+    </div>
+</article>

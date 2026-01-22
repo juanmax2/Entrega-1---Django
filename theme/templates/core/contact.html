@@ -1,0 +1,39 @@
+{% extends "../base.html" %}
+{% load tailwind_filters %}
+
+{% block head_title %}Contact{% endblock %}
+
+{% block page_content %}
+
+   
+        <div class="p-8 flex flex-col">
+            <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold mb-1">Soporte</div>
+            <h1 class="text-3xl text-pink-600 my-10 text-center mb-10">Contacta con nosotros 🎸</h1>
+            
+            <p class="text-center mb-10">
+                ¿Tienes problemas con tu cuenta? ¿Sugerencias para nuevas funciones de audio? Escríbenos.
+            </p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form action="" method="post">
+                {% csrf_token %}
+                
+                {{ form | crispy }}
+                
+                <div class="flex justify-center mt-10">
+                    <button class="border rounded-2xl p-2 border-pink-600 text-pink-600 hover:border-white hover:text-white hover:bg-pink-600">Contactar</button>
+                </div>
+            </form>
+        </div>
+
+    
+
+
+{% endblock %}

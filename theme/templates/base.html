@@ -1,0 +1,66 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> {% block head_title %}Título base{% endblock %} </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+</head>
+
+<body class="flex flex-col min-h-screen bg-linear-to-b from-pink-50 to-pink-200">
+    {% include '_includes/_header.html' %}
+
+    <main class="flex-1">
+
+        {% block page_content %}
+    
+
+        {% endblock %}
+    </main>
+
+
+    {% include '_includes/_footer.html' %}
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function(){
+            container_message = document.getElementById('messages-container')
+            if (container_message) {
+                setTimeout(function(){
+                    container_message.style.transition = "opacity 0.5s ease"
+                    container_message.style.setProperty("opacity", "0", "important")
+
+                    setTimeout(function() {
+                        container_message.remove()
+                    }, 500)
+                } ,2000)
+            }
+        })
+
+        document.addEventListener("DOMContentLoaded", function(){
+            const allLikeBtn = document.querySelectorAll('.likeBtn')
+            allLikeBtn.forEach(btn => {
+                btn.addEventListener('click', function(event){
+                    event.preventDefault()
+                    
+                    const postId = this.getAttribute('data-id')
+                    const countElement = document.getElementById(`numLikes-${postId}`)
+
+                    fetch(this.href)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.innerHTML = data.liked ? '❤️' : '🩶'
+
+                        if(countElement) {
+                            countElement.innerHTML = data.count
+                        }
+                    })
+                })
+            })
+        })
+
+    </script>
+</body>
+</html>

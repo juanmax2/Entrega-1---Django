@@ -1,0 +1,61 @@
+{% extends "../base.html" %}
+
+{% block head_title %}Legal{% endblock %}
+
+{% block page_content %}
+    
+
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-4xl mx-auto  shadow-md rounded-px-8 p-10 ">
+            <h1 class="text-3xl text-pink-600 my-10 text-center mb-10">
+                Aviso legal
+            </h1>
+            
+            <div class="prose mb-10 prose-indigo text-gray-700 leading-relaxed space-y-6">
+                
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-900">1. Información General</h2>
+                    <p>En cumplimiento con el deber de información, se facilitan los datos del titular de <strong>Social Music</strong>:</p>
+                    <ul class="list-disc pl-6">
+                        <li><strong>Responsable:</strong> [Tu Nombre o Nombre de Empresa]</li>
+                        <li><strong>Email:</strong> [Tu Email de Contacto]</li>
+                        <li><strong>Finalidad:</strong> Red social para compartir contenido musical y multimedia.</li>
+                    </ul>
+                </section>
+    
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-900">2. Propiedad Intelectual</h2>
+                    <p>Social Music es una plataforma de intercambio. Los usuarios mantienen los derechos de autor sobre las imágenes y textos que publican. Sin embargo, al publicar contenido en esta web, el usuario concede a Social Music una licencia no exclusiva para mostrar dicho contenido dentro de la plataforma.</p>
+                    <p>Queda prohibida la reproducción total o parcial de los contenidos de la web (logotipos, diseño, código fuente) sin autorización expresa.</p>
+                </section>
+    
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-900">3. Protección de Datos (RGPD)</h2>
+                    <p>De acuerdo con el Reglamento General de Protección de Datos, te informamos que los datos que nos facilitas (Nombre, Email, Perfil) serán tratados para:</p>
+                    <ul class="list-disc pl-6">
+                        <li>Gestionar tu cuenta de usuario y permitir la interacción social.</li>
+                        <li>Responder a las consultas realizadas a través del formulario de contacto.</li>
+                    </ul>
+                    <p>Puedes ejercer tus derechos de acceso, rectificación y eliminación enviando un correo a nuestro email de contacto.</p>
+                </section>
+    
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-900">4. Responsabilidad del Usuario</h2>
+                    <p>El usuario se compromete a hacer un uso lícito de la plataforma, evitando subir contenido que vulnere derechos de terceros, sea ofensivo o infrinja leyes de copyright musical.</p>
+                </section>
+    
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-900">5. Cookies</h2>
+                    <p>Esta web utiliza cookies técnicas esenciales para el funcionamiento del login y la seguridad de la sesión. No utilizamos cookies de rastreo de terceros con fines publicitarios.</p>
+                </section>
+    
+            </div>
+            
+            <div class="text-center">
+                <a href="{% url 'home' %}" class="border mt-22 rounded-2xl p-2 border-pink-600 text-pink-600 hover:border-white hover:text-white hover:bg-pink-600">
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

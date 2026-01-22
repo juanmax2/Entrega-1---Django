@@ -1,0 +1,16 @@
+
+{% if messages %}
+    <div id="messages-container">
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div class="border border-green-600 bg-green-300 text-green-600 text-center">
+                    {{message}}  
+                </div> 
+            {% elif message.tags == 'error' %}
+                <div class="border border-red-600 bg-red-300 text-red-600 text-center">
+                    {{message}}  
+                </div> 
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

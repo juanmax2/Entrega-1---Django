@@ -1,0 +1,27 @@
+{% extends "../base.html" %}
+{% load tailwind_filters %}
+
+{% block head_title %}Login{% endblock %}
+
+{% block page_content %}
+<div class="w-full max-w-xl mx-auto p-6 justify-center align-center">
+
+    <h1 class="text-3xl text-pink-600 my-10 text-center">
+        Inicia sesíon
+    </h1>
+    {% include '_includes/_message.html' %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+
+        {{form | crispy}}
+
+        <div class="flex justify-center">
+            <button class="bg-pink-200 p-2 rounded-2xl text-black mt-3 hover:border-white hover:text-white hover:bg-pink-600">Iniciar</button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

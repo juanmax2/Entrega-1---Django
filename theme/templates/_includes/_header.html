@@ -1,0 +1,26 @@
+<header class="p-3 bg-black text-white">
+    <div class="flex gap-3">
+        <a class="inline-block bg-pink-200 p-1 rounded-2xl text-black" href=" {% url 'home' %}">
+            <h1 class="text-lg">
+                Social Music
+            </h1>
+        </a>
+    
+        <nav class="ml-auto ">
+            <ul class="flex mt-3 gap-2 text-xs">
+                <li><a class="border-b pb-1 border-pink-300 text-pink-300" href="{% url 'home' %}">Inicio</a></li>
+                {% if not request.user.is_authenticated %}
+                    <li><a class="border-b pb-1 border-pink-300 text-pink-300" href="{% url 'login' %}">Login</a></li>
+                    <li><a class="border-b pb-1 border-pink-300 text-pink-300" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+                <li><a class="border-b pb-1 border-pink-300 text-pink-300" href="{% url 'contact' %}">Contacto</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a class="border-b pb-1 border-pink-300 text-pink-300" href="{% url 'profile_detail' request.user.profile.pk %}">Mi perfil</a></li>
+                    <li><a class="border-b pb-1 border-pink-300 text-pink-300" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% endif %}
+
+                
+            </ul>
+        </nav>
+    </div>
+</header>

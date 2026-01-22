@@ -1,0 +1,69 @@
+{% extends "../base.html" %}
+
+{% block head_title %}Detalle de perfil{% endblock %}
+
+{% block page_content %}
+    <div>
+        <h1 class="text-3xl text-pink-600 my-10 text-center">
+            Mi perfil
+        </h1>
+        <small class="block text-center">
+            Bienvenido a tu perfil, {{request.user.username}}!
+        </small>
+
+        <div class="bg-white mx-10 my-10 shadow-2xl shadow-gray-700 rounded-2xl p-10 flex flex-col gap-3 text-center lg:w-lg lg:mx-auto">
+            {% if profile.profile_picture %}
+                    <img class="w-lg mx-auto"  src="{{ profile.profile_picture.url }}" alt="">
+                {% else %}
+                    <img class="w-[50%] mx-auto"  src="{{ profile.get_avatar_url }}" alt="">
+                {% endif %}
+            <p>
+                Nombre: {{ profile.user.username }}
+            </p>
+            <p>
+                Biografia: {{ profile.bio|default_if_none:'None' }}
+            </p>
+            <div class="flex gap-2 mx-auto">
+                <p>
+                    <small>Seguidores: {{ profile.followers.count }}</small>
+                </p>
+                <p>
+                    <small>Seguidos: {{ profile.follows.count }}</small>
+                </p>
+            </div>
+            
+            {% if profile.user != request.user %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value="{{ profile.pk }}">
+                    {% if following %}
+                        <input type="hidden" name="action" value="unfollow">
+                        <button type="submit" class="bg-pink-200 p-2 rounded-2xl text-black mt-3 hover:border-white hover:text-white hover:bg-pink-600">Dejar de seguir</button>
+                    {% else %}
+                        <input type="hidden" name="action" value="follow">
+                        <button type="submit" class="bg-pink-200 p-2 rounded-2xl text-black mt-3 hover:border-white hover:text-white hover:bg-pink-600">Seguir</button>
+                    {% endif %}
+                </form>
+            {% endif %}
+
+
+            {% if profile.user == request.user %}
+                <div class="flex justify-center">
+                    <a class="inline-block bg-pink-200 p-2 rounded-2xl text-black mt-3 ml-auto" href="{% url 'profile_update' request.user.profile.pk %}">Editar</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <section class="mx-10 text-center ">
+            <h2 class="mb-5 text-xl">Mis publicaciones</h2>
+            <div class="flex flex-col text-center md:grid md:grid-cols-2 md:gap-5 md:mx-10 xl:grid-cols-3">
+                {% for post in profile.user.post.all %}
+                    {% include '_includes/_posts/_post_resume.html' %}
+                {% endfor %}
+            </div>
+            
+
+        </section>
+    </div>
+
+{% endblock %}

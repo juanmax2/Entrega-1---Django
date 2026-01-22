@@ -1,0 +1,86 @@
+{% load tailwind_filters %}
+
+<article class="flex flex-col bg-linear-to-b from-transparent to-pink-200 shadow-2xl rounded-3xl p-5">
+    <div class="flex flex-col"></div>
+        {% if post.image.url %}
+            <img class="w-sm mx-auto mb-10" src=" {{ post.image.url }}" alt="Imagen del post">
+        {% else %}
+            <p>
+                Este post no tiene imagen
+            </p>
+        {% endif %}
+
+    
+        <p>
+            {{ post.caption }}
+        </p>
+
+
+        <div class="flex my-5 justify-center">
+
+            <a class="likeBtn inline-block transition-transform duration-200 active:scale-150" href="{% url 'post_like_ajax' post.pk %} " data-id="{{ post.pk }}">
+                {% if request.user in post.likes.all %}
+                    ❤️
+                {% else %}
+                    🩶
+                {% endif %}
+            </a>
+
+            <p id="numLikes-{{ post.pk }}">
+                {{ post.likes.count }}
+            </p>
+        </div>
+        <p class="flex">
+            <span  class="ml-auto">
+                {{ post.created_at }}
+            </span>
+        </p>
+    </div>
+    <section class="flex flex-col p-10 xl:w-[60%] xl:mx-auto" id="comments">
+        <h5 class="text-xl text-pink-600 my-3 text-center">Comentarios</h5>
+        
+        <div>
+            {% if post.comments.all.count %}
+                {% for comment in post.comments.all %}
+                    <div class="flex flex-col mt-5 mb-10 bg-linear-to-b from-transparent to-pink-200 shadow-2xl rounded-3xl p-5">
+                        <div class="flex gap-3">
+                            {% if post.user.profile.profile_picture %}
+                            <img class="w-10 h-10 object-cover rounded-full" src="{{ post.user.profile.profile_picture.url }}" alt="">
+                            {% else %}
+                                <img class="w-10 h-10 object-cover rounded-full" src="{{ post.user.profile.get_avatar_url }}" alt="">
+                            {% endif %}
+                            <p class="mt-2">
+                                Autor: {{ comment.user }}
+                            </p>
+                        </div>
+                        <p class="ml-3">
+                            {{ comment.text }}
+                        </p>
+                        <p class="flex">
+                            <small class="ml-auto">
+                                {{ comment.created_at }}
+                            </small>
+                        </p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center mb-10">
+                    No hay comentarios para esta publicación.
+                </p>
+            {% endif %}
+        </div>
+        
+        
+        <div>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div class="flex flex-col">
+                    <button type="submit" class="mx-auto border rounded-2xl p-2 border-pink-600 text-pink-600 hover:border-white hover:text-white hover:bg-pink-600 xl:mr-auto">Comentar</button>
+                </div>
+                
+            </form>
+        </div>
+        
+    </section>
+</article>

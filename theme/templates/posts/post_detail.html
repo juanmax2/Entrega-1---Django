@@ -1,0 +1,17 @@
+{% extends "../base.html" %}
+
+
+{% block head_title %}Post{% endblock %}
+
+{% block page_content %}
+
+    <div class="w-full max-w-xl mx-auto p-6 justify-center align-center">
+
+        <h1 class="text-3xl text-pink-600 my-10 text-center">
+           Post de {{ post.user.username}}
+        </h1>
+
+        {% include '_includes/_posts/_post.html' %}
+    </div>
+
+{% endblock %}
