@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     def get_avatar_url(self):
         if self.profile_picture and hasattr(self.profile_picture, 'url'):
             return self.profile_picture.url
-        return "/theme/img/no_picture.png"
+        return "/media/no_picture.png"
     
     def follow(self, profile):
         Follow.objects.get_or_create(follower=self, following=profile)
