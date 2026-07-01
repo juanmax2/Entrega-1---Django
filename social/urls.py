@@ -25,38 +25,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
 ]
-# if not settings.DEBUG:
-#     urlpatterns += [
-#         re_path(r'^media/(?P<path>.*)$', serve, {
-#             'document_root': settings.MEDIA_ROOT,
-#         }),
-#     ]
-# else:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-# if settings.DEBUG:
-#     # Include django_browser_reload URLs only in DEBUG mode
-#     urlpatterns += [
-#         path("__reload__/", include("django_browser_reload.urls")),
-#     ]
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-if not settings.DEBUG:
+if settings.DEBUG:
+    # 1. Rutas de autorearga del navegador
     urlpatterns += [
-        # Nota que hemos quitado el / inicial del r'^media...
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
+    # 2. Servir archivos multimedia (imágenes de perfil, posts, etc.) localmente
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# CONFIGURACIÓN PARA MODO PRODUCCIÓN (DEBUG = False)
+else:
+    urlpatterns += [
         re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-        # También para estáticos por si WhiteNoise falla en local
         re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     ]
-
-# if settings.DEBUG:
-#     # En desarrollo, Django sirve media automáticamente
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-#     # URLs de autoreload
-#     urlpatterns += [path("__reload__/", include("django_browser_reload.urls"))]
-# else:
-#     # En producción/build (DEBUG=False), forzamos el servido de media
-#     urlpatterns += [
-#         re_path(r'^/media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-#     ]

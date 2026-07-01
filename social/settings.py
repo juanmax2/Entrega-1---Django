@@ -11,7 +11,7 @@ TEMPLATES_DIR = BASE_DIR / 'theme' / 'templates'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-dev-key-12345')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
