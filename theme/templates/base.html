@@ -24,43 +24,46 @@
     {% include '_includes/_footer.html' %}
 
     <script>
-        
-        document.addEventListener('DOMContentLoaded', function(){
-            container_message = document.getElementById('messages-container')
-            if (container_message) {
-                setTimeout(function(){
-                    container_message.style.transition = "opacity 0.5s ease"
-                    container_message.style.setProperty("opacity", "0", "important")
+    document.addEventListener('DOMContentLoaded', function(){
+        container_message = document.getElementById('messages-container')
+        if (container_message) {
+            setTimeout(function(){
+                container_message.style.transition = "opacity 0.5s ease"
+                container_message.style.setProperty("opacity", "0", "important")
 
-                    setTimeout(function() {
-                        container_message.remove()
-                    }, 500)
-                } ,2000)
-            }
-        })
+                setTimeout(function() {
+                    container_message.remove()
+                }, 500)
+            } ,2000)
+        }
+    })
 
-        document.addEventListener("DOMContentLoaded", function(){
-            const allLikeBtn = document.querySelectorAll('.likeBtn')
-            allLikeBtn.forEach(btn => {
-                btn.addEventListener('click', function(event){
-                    event.preventDefault()
-                    
-                    const postId = this.getAttribute('data-id')
-                    const countElement = document.getElementById(`numLikes-${postId}`)
+    document.addEventListener("DOMContentLoaded", function(){
+        const allLikeBtn = document.querySelectorAll('.likeBtn')
+        allLikeBtn.forEach(btn => {
+            btn.addEventListener('click', function(event){
+                event.preventDefault()
+                
+                const postId = this.getAttribute('data-id')
+                const countElement = document.getElementById(`numLikes-${postId}`)
 
-                    fetch(this.href)
-                    .then(response => response.json())
-                    .then(data => {
-                        this.innerHTML = data.liked ? '❤️' : '🩶'
-
-                        if(countElement) {
-                            countElement.innerHTML = data.count
-                        }
-                    })
+                // Añadimos 'cache: "no-store"' para destruir la caché en producción (Render)
+                fetch(this.href, {
+                    method: 'GET',
+                    cache: 'no-store'
                 })
+                .then(response => response.json())
+                .then(data => {
+                    this.innerHTML = data.liked ? '❤️' : '🩶'
+
+                    if(countElement) {
+                        countElement.innerHTML = data.count
+                    }
+                })
+                .catch(error => console.error("Error en el Like:", error))
             })
         })
-
-    </script>
+    })
+</script>
 </body>
 </html>
